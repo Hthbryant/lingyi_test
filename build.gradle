@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
+
+plugins {
+    id "io.franzbecker.gradle-lombok" version "3.1.0"   //在此添加插件否则lombok引用会失败
+}
+
+apply plugin:'org.springframework.boot'
+apply plugin:'java'
+apply plugin:'io.spring.dependency-management'
+
+group 'com.lingyi'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven {
+        url "http://maven.aliyun.com/nexus/content/groups/public/"
+    }
+}
+
+dependencies {
+    compile "com.baomidou:mybatis-plus-boot-starter:3.1.0"
+    compile('mysql:mysql-connector-java')
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile 'org.projectlombok:lombok:1.18.2'
+
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.4.2'
+    compile group: 'com.alibaba', name: 'druid', version: '1.1.4'
+    implementation group: 'org.apache.poi', name: 'poi', version: '5.0.0'
+
+    compile 'net.sourceforge.nekohtml:nekohtml:1.9.12'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf:1.5.9.RELEASE'
+    
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+bootRun{
+    main="com.lingyi.server.BryantStartServer"
+    jvmArgs = [
+            "-Dspring.config.location=classpath:application.properties"
+    ]
+}
